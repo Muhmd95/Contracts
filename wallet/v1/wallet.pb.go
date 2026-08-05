@@ -34,6 +34,7 @@ type ModifyBalanceRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
+
 func (x *ModifyBalanceRequest) Reset() {
 	*x = ModifyBalanceRequest{}
 	mi := &file_wallet_v1_wallet_proto_msgTypes[0]
