@@ -28,7 +28,7 @@ const (
 
 type ModifyBalanceRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	PhoneNumber   string                 `protobuf:"bytes,1,opt,name=phone_number,json=phoneNumber,proto3" json:"phone_number,omitempty"`
+	PhoneNumber   int32                  `protobuf:"varint,1,opt,name=phone_number,json=phoneNumber,proto3" json:"phone_number,omitempty"`
 	Amount        int64                  `protobuf:"varint,2,opt,name=amount,proto3" json:"amount,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -64,11 +64,11 @@ func (*ModifyBalanceRequest) Descriptor() ([]byte, []int) {
 	return file_wallet_v1_wallet_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *ModifyBalanceRequest) GetPhoneNumber() string {
+func (x *ModifyBalanceRequest) GetPhoneNumber() int32 {
 	if x != nil {
 		return x.PhoneNumber
 	}
-	return ""
+	return 0
 }
 
 func (x *ModifyBalanceRequest) GetAmount() int64 {
@@ -144,7 +144,7 @@ const file_wallet_v1_wallet_proto_rawDesc = "" +
 	"\n" +
 	"\x16wallet/v1/wallet.proto\x12\twallet.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"Q\n" +
 	"\x14ModifyBalanceRequest\x12!\n" +
-	"\fphone_number\x18\x01 \x01(\tR\vphoneNumber\x12\x16\n" +
+	"\fphone_number\x18\x01 \x01(\x05R\vphoneNumber\x12\x16\n" +
 	"\x06amount\x18\x02 \x01(\x03R\x06amount\"\x89\x01\n" +
 	"\x15ModifyBalanceResponse\x12\x1b\n" +
 	"\twallet_id\x18\x01 \x01(\tR\bwalletId\x12\x18\n" +
