@@ -14,7 +14,7 @@ service WalletService {
 }
 
 message ModifyBalanceRequest {
-    int32 phone_number = 1;
+    string phone_number = 1;
     int64 amount = 2;
 }
 
