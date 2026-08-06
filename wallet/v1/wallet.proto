@@ -16,6 +16,8 @@ service WalletService {
 message ModifyBalanceRequest {
     string phone_number = 1;
     int64 amount = 2;
+
+    string referenceID = 3; // the transaction id
 }
 
 message ModifyBalanceResponse {

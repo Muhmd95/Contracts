@@ -30,10 +30,10 @@ type ModifyBalanceRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	PhoneNumber   string                 `protobuf:"bytes,1,opt,name=phone_number,json=phoneNumber,proto3" json:"phone_number,omitempty"`
 	Amount        int64                  `protobuf:"varint,2,opt,name=amount,proto3" json:"amount,omitempty"`
+	ReferenceID   string                 `protobuf:"bytes,3,opt,name=referenceID,proto3" json:"referenceID,omitempty"` // the transaction id
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
-
 
 func (x *ModifyBalanceRequest) Reset() {
 	*x = ModifyBalanceRequest{}
@@ -77,6 +77,13 @@ func (x *ModifyBalanceRequest) GetAmount() int64 {
 		return x.Amount
 	}
 	return 0
+}
+
+func (x *ModifyBalanceRequest) GetReferenceID() string {
+	if x != nil {
+		return x.ReferenceID
+	}
+	return ""
 }
 
 type ModifyBalanceResponse struct {
@@ -143,10 +150,11 @@ var File_wallet_v1_wallet_proto protoreflect.FileDescriptor
 
 const file_wallet_v1_wallet_proto_rawDesc = "" +
 	"\n" +
-	"\x16wallet/v1/wallet.proto\x12\twallet.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"Q\n" +
+	"\x16wallet/v1/wallet.proto\x12\twallet.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"s\n" +
 	"\x14ModifyBalanceRequest\x12!\n" +
 	"\fphone_number\x18\x01 \x01(\tR\vphoneNumber\x12\x16\n" +
-	"\x06amount\x18\x02 \x01(\x03R\x06amount\"\x89\x01\n" +
+	"\x06amount\x18\x02 \x01(\x03R\x06amount\x12 \n" +
+	"\vreferenceID\x18\x03 \x01(\tR\vreferenceID\"\x89\x01\n" +
 	"\x15ModifyBalanceResponse\x12\x1b\n" +
 	"\twallet_id\x18\x01 \x01(\tR\bwalletId\x12\x18\n" +
 	"\abalance\x18\x02 \x01(\x03R\abalance\x129\n" +
