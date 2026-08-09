@@ -24,6 +24,7 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	WalletService_ModifyBalance_FullMethodName = "/wallet.v1.WalletService/ModifyBalance"
+	WalletService_GetWallet_FullMethodName     = "/wallet.v1.WalletService/GetWallet"
 )
 
 // WalletServiceClient is the client API for WalletService service.
@@ -31,6 +32,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type WalletServiceClient interface {
 	ModifyBalance(ctx context.Context, in *ModifyBalanceRequest, opts ...grpc.CallOption) (*ModifyBalanceResponse, error)
+	GetWallet(ctx context.Context, in *GetWalletRequest, opts ...grpc.CallOption) (*GetWalletResponse, error)
 }
 
 type walletServiceClient struct {
@@ -51,11 +53,22 @@ func (c *walletServiceClient) ModifyBalance(ctx context.Context, in *ModifyBalan
 	return out, nil
 }
 
+func (c *walletServiceClient) GetWallet(ctx context.Context, in *GetWalletRequest, opts ...grpc.CallOption) (*GetWalletResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetWalletResponse)
+	err := c.cc.Invoke(ctx, WalletService_GetWallet_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WalletServiceServer is the server API for WalletService service.
 // All implementations must embed UnimplementedWalletServiceServer
 // for forward compatibility.
 type WalletServiceServer interface {
 	ModifyBalance(context.Context, *ModifyBalanceRequest) (*ModifyBalanceResponse, error)
+	GetWallet(context.Context, *GetWalletRequest) (*GetWalletResponse, error)
 	mustEmbedUnimplementedWalletServiceServer()
 }
 
@@ -68,6 +81,9 @@ type UnimplementedWalletServiceServer struct{}
 
 func (UnimplementedWalletServiceServer) ModifyBalance(context.Context, *ModifyBalanceRequest) (*ModifyBalanceResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ModifyBalance not implemented")
+}
+func (UnimplementedWalletServiceServer) GetWallet(context.Context, *GetWalletRequest) (*GetWalletResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetWallet not implemented")
 }
 func (UnimplementedWalletServiceServer) mustEmbedUnimplementedWalletServiceServer() {}
 func (UnimplementedWalletServiceServer) testEmbeddedByValue()                       {}
@@ -108,6 +124,24 @@ func _WalletService_ModifyBalance_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WalletService_GetWallet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetWalletRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WalletServiceServer).GetWallet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WalletService_GetWallet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WalletServiceServer).GetWallet(ctx, req.(*GetWalletRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // WalletService_ServiceDesc is the grpc.ServiceDesc for WalletService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -118,6 +152,10 @@ var WalletService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ModifyBalance",
 			Handler:    _WalletService_ModifyBalance_Handler,
+		},
+		{
+			MethodName: "GetWallet",
+			Handler:    _WalletService_GetWallet_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

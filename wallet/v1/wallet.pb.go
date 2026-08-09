@@ -146,6 +146,102 @@ func (x *ModifyBalanceResponse) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+type GetWalletRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	PhoneNumber   string                 `protobuf:"bytes,1,opt,name=phone_number,json=phoneNumber,proto3" json:"phone_number,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetWalletRequest) Reset() {
+	*x = GetWalletRequest{}
+	mi := &file_wallet_v1_wallet_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetWalletRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetWalletRequest) ProtoMessage() {}
+
+func (x *GetWalletRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_wallet_v1_wallet_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetWalletRequest.ProtoReflect.Descriptor instead.
+func (*GetWalletRequest) Descriptor() ([]byte, []int) {
+	return file_wallet_v1_wallet_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *GetWalletRequest) GetPhoneNumber() string {
+	if x != nil {
+		return x.PhoneNumber
+	}
+	return ""
+}
+
+type GetWalletResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	WalletId      string                 `protobuf:"bytes,1,opt,name=wallet_id,json=walletId,proto3" json:"wallet_id,omitempty"`
+	OwnerName     string                 `protobuf:"bytes,2,opt,name=owner_name,json=ownerName,proto3" json:"owner_name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetWalletResponse) Reset() {
+	*x = GetWalletResponse{}
+	mi := &file_wallet_v1_wallet_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetWalletResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetWalletResponse) ProtoMessage() {}
+
+func (x *GetWalletResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_wallet_v1_wallet_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetWalletResponse.ProtoReflect.Descriptor instead.
+func (*GetWalletResponse) Descriptor() ([]byte, []int) {
+	return file_wallet_v1_wallet_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *GetWalletResponse) GetWalletId() string {
+	if x != nil {
+		return x.WalletId
+	}
+	return ""
+}
+
+func (x *GetWalletResponse) GetOwnerName() string {
+	if x != nil {
+		return x.OwnerName
+	}
+	return ""
+}
+
 var File_wallet_v1_wallet_proto protoreflect.FileDescriptor
 
 const file_wallet_v1_wallet_proto_rawDesc = "" +
@@ -159,9 +255,16 @@ const file_wallet_v1_wallet_proto_rawDesc = "" +
 	"\twallet_id\x18\x01 \x01(\tR\bwalletId\x12\x18\n" +
 	"\abalance\x18\x02 \x01(\x03R\abalance\x129\n" +
 	"\n" +
-	"updated_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt2e\n" +
+	"updated_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"5\n" +
+	"\x10GetWalletRequest\x12!\n" +
+	"\fphone_number\x18\x01 \x01(\tR\vphoneNumber\"O\n" +
+	"\x11GetWalletResponse\x12\x1b\n" +
+	"\twallet_id\x18\x01 \x01(\tR\bwalletId\x12\x1d\n" +
+	"\n" +
+	"owner_name\x18\x02 \x01(\tR\townerName2\xaf\x01\n" +
 	"\rWalletService\x12T\n" +
-	"\rModifyBalance\x12\x1f.wallet.v1.ModifyBalanceRequest\x1a .wallet.v1.ModifyBalanceResponse\"\x00B1Z/github.com/Muhmd95/Contracts/wallet/v1;walletv1b\x06proto3"
+	"\rModifyBalance\x12\x1f.wallet.v1.ModifyBalanceRequest\x1a .wallet.v1.ModifyBalanceResponse\"\x00\x12H\n" +
+	"\tGetWallet\x12\x1b.wallet.v1.GetWalletRequest\x1a\x1c.wallet.v1.GetWalletResponse\"\x00B1Z/github.com/Muhmd95/Contracts/wallet/v1;walletv1b\x06proto3"
 
 var (
 	file_wallet_v1_wallet_proto_rawDescOnce sync.Once
@@ -175,18 +278,22 @@ func file_wallet_v1_wallet_proto_rawDescGZIP() []byte {
 	return file_wallet_v1_wallet_proto_rawDescData
 }
 
-var file_wallet_v1_wallet_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_wallet_v1_wallet_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_wallet_v1_wallet_proto_goTypes = []any{
 	(*ModifyBalanceRequest)(nil),  // 0: wallet.v1.ModifyBalanceRequest
 	(*ModifyBalanceResponse)(nil), // 1: wallet.v1.ModifyBalanceResponse
-	(*timestamppb.Timestamp)(nil), // 2: google.protobuf.Timestamp
+	(*GetWalletRequest)(nil),      // 2: wallet.v1.GetWalletRequest
+	(*GetWalletResponse)(nil),     // 3: wallet.v1.GetWalletResponse
+	(*timestamppb.Timestamp)(nil), // 4: google.protobuf.Timestamp
 }
 var file_wallet_v1_wallet_proto_depIdxs = []int32{
-	2, // 0: wallet.v1.ModifyBalanceResponse.updated_at:type_name -> google.protobuf.Timestamp
+	4, // 0: wallet.v1.ModifyBalanceResponse.updated_at:type_name -> google.protobuf.Timestamp
 	0, // 1: wallet.v1.WalletService.ModifyBalance:input_type -> wallet.v1.ModifyBalanceRequest
-	1, // 2: wallet.v1.WalletService.ModifyBalance:output_type -> wallet.v1.ModifyBalanceResponse
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
+	2, // 2: wallet.v1.WalletService.GetWallet:input_type -> wallet.v1.GetWalletRequest
+	1, // 3: wallet.v1.WalletService.ModifyBalance:output_type -> wallet.v1.ModifyBalanceResponse
+	3, // 4: wallet.v1.WalletService.GetWallet:output_type -> wallet.v1.GetWalletResponse
+	3, // [3:5] is the sub-list for method output_type
+	1, // [1:3] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
@@ -203,7 +310,7 @@ func file_wallet_v1_wallet_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_wallet_v1_wallet_proto_rawDesc), len(file_wallet_v1_wallet_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

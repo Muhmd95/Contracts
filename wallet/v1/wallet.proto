@@ -11,6 +11,7 @@ import "google/protobuf/timestamp.proto";
 
 service WalletService {
     rpc ModifyBalance(ModifyBalanceRequest) returns (ModifyBalanceResponse) {}
+    rpc GetWallet(GetWalletRequest) returns (GetWalletResponse) {}
 }
 
 message ModifyBalanceRequest {
@@ -26,3 +27,13 @@ message ModifyBalanceResponse {
     
     google.protobuf.Timestamp updated_at = 3;
 }
+
+message GetWalletRequest {
+    string phone_number = 1;
+}
+
+message GetWalletResponse {
+    string wallet_id = 1;
+    string owner_name =2;
+}
+
