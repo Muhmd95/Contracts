@@ -7,7 +7,6 @@ package notifications.v1;
 // language and specifies the import path for the generated code.
 option go_package = "github.com/Muhmd95/Contracts/notifications/v1;notificationsv1";
 
-import "google/protobuf/timestamp.proto";
 
 service NotificationService {
     rpc SendSMSNotification(SendNotificationRequest) returns (SendNotificationResponse) {}
@@ -21,7 +20,7 @@ message SendNotificationRequest {
     string wallet_id = 4;
     int64  amount = 5;
     int64  balance = 6;
-    
+
 }
 
 message SendNotificationResponse {
