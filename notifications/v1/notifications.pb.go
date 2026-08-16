@@ -111,13 +111,11 @@ func (x *SendNotificationRequest) GetBalance() int64 {
 }
 
 type SendNotificationResponse struct {
-	state              protoimpl.MessageState `protogen:"open.v1"`
-	SmsSuccess         bool                   `protobuf:"varint,1,opt,name=sms_success,json=smsSuccess,proto3" json:"sms_success,omitempty"`
-	PushSuccess        bool                   `protobuf:"varint,2,opt,name=push_success,json=pushSuccess,proto3" json:"push_success,omitempty"`
-	SmsNotificationId  string                 `protobuf:"bytes,3,opt,name=sms_notification_id,json=smsNotificationId,proto3" json:"sms_notification_id,omitempty"`
-	PushNotificationId string                 `protobuf:"bytes,4,opt,name=push_notification_id,json=pushNotificationId,proto3" json:"push_notification_id,omitempty"`
-	unknownFields      protoimpl.UnknownFields
-	sizeCache          protoimpl.SizeCache
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Success        bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	NotificationId string                 `protobuf:"bytes,2,opt,name=notification_id,json=notificationId,proto3" json:"notification_id,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *SendNotificationResponse) Reset() {
@@ -150,30 +148,16 @@ func (*SendNotificationResponse) Descriptor() ([]byte, []int) {
 	return file_notifications_v1_notifications_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *SendNotificationResponse) GetSmsSuccess() bool {
+func (x *SendNotificationResponse) GetSuccess() bool {
 	if x != nil {
-		return x.SmsSuccess
+		return x.Success
 	}
 	return false
 }
 
-func (x *SendNotificationResponse) GetPushSuccess() bool {
+func (x *SendNotificationResponse) GetNotificationId() string {
 	if x != nil {
-		return x.PushSuccess
-	}
-	return false
-}
-
-func (x *SendNotificationResponse) GetSmsNotificationId() string {
-	if x != nil {
-		return x.SmsNotificationId
-	}
-	return ""
-}
-
-func (x *SendNotificationResponse) GetPushNotificationId() string {
-	if x != nil {
-		return x.PushNotificationId
+		return x.NotificationId
 	}
 	return ""
 }
@@ -189,13 +173,10 @@ const file_notifications_v1_notifications_proto_rawDesc = "" +
 	"\x0etransaction_id\x18\x03 \x01(\tR\rtransactionId\x12\x1b\n" +
 	"\twallet_id\x18\x04 \x01(\tR\bwalletId\x12\x16\n" +
 	"\x06amount\x18\x05 \x01(\x03R\x06amount\x12\x18\n" +
-	"\abalance\x18\x06 \x01(\x03R\abalance\"\xc0\x01\n" +
-	"\x18SendNotificationResponse\x12\x1f\n" +
-	"\vsms_success\x18\x01 \x01(\bR\n" +
-	"smsSuccess\x12!\n" +
-	"\fpush_success\x18\x02 \x01(\bR\vpushSuccess\x12.\n" +
-	"\x13sms_notification_id\x18\x03 \x01(\tR\x11smsNotificationId\x120\n" +
-	"\x14push_notification_id\x18\x04 \x01(\tR\x12pushNotificationId2\xf6\x01\n" +
+	"\abalance\x18\x06 \x01(\x03R\abalance\"]\n" +
+	"\x18SendNotificationResponse\x12\x18\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12'\n" +
+	"\x0fnotification_id\x18\x02 \x01(\tR\x0enotificationId2\xf6\x01\n" +
 	"\x13NotificationService\x12n\n" +
 	"\x13SendSMSNotification\x12).notifications.v1.SendNotificationRequest\x1a*.notifications.v1.SendNotificationResponse\"\x00\x12o\n" +
 	"\x14SendPushNotification\x12).notifications.v1.SendNotificationRequest\x1a*.notifications.v1.SendNotificationResponse\"\x00B?Z=github.com/Muhmd95/Contracts/notifications/v1;notificationsv1b\x06proto3"
