@@ -32,6 +32,8 @@ type SendNotificationRequest struct {
 	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
 	TransactionId string                 `protobuf:"bytes,3,opt,name=transaction_id,json=transactionId,proto3" json:"transaction_id,omitempty"`
 	WalletId      string                 `protobuf:"bytes,4,opt,name=wallet_id,json=walletId,proto3" json:"wallet_id,omitempty"`
+	Amount        int64                  `protobuf:"varint,5,opt,name=amount,proto3" json:"amount,omitempty"`
+	Balance       int64                  `protobuf:"varint,6,opt,name=balance,proto3" json:"balance,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -94,12 +96,26 @@ func (x *SendNotificationRequest) GetWalletId() string {
 	return ""
 }
 
+func (x *SendNotificationRequest) GetAmount() int64 {
+	if x != nil {
+		return x.Amount
+	}
+	return 0
+}
+
+func (x *SendNotificationRequest) GetBalance() int64 {
+	if x != nil {
+		return x.Balance
+	}
+	return 0
+}
+
 type SendNotificationResponse struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Success       bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
-	MessageId     string                 `protobuf:"bytes,2,opt,name=message_id,json=messageId,proto3" json:"message_id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Success        bool                   `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	NotificationId string                 `protobuf:"bytes,2,opt,name=notification_id,json=notificationId,proto3" json:"notification_id,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
 func (x *SendNotificationResponse) Reset() {
@@ -139,9 +155,9 @@ func (x *SendNotificationResponse) GetSuccess() bool {
 	return false
 }
 
-func (x *SendNotificationResponse) GetMessageId() string {
+func (x *SendNotificationResponse) GetNotificationId() string {
 	if x != nil {
-		return x.MessageId
+		return x.NotificationId
 	}
 	return ""
 }
@@ -150,16 +166,17 @@ var File_notifications_v1_notifications_proto protoreflect.FileDescriptor
 
 const file_notifications_v1_notifications_proto_rawDesc = "" +
 	"\n" +
-	"$notifications/v1/notifications.proto\x12\x10notifications.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\x9a\x01\n" +
+	"$notifications/v1/notifications.proto\x12\x10notifications.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\xcc\x01\n" +
 	"\x17SendNotificationRequest\x12!\n" +
 	"\fphone_number\x18\x01 \x01(\tR\vphoneNumber\x12\x18\n" +
 	"\amessage\x18\x02 \x01(\tR\amessage\x12%\n" +
 	"\x0etransaction_id\x18\x03 \x01(\tR\rtransactionId\x12\x1b\n" +
-	"\twallet_id\x18\x04 \x01(\tR\bwalletId\"S\n" +
+	"\twallet_id\x18\x04 \x01(\tR\bwalletId\x12\x16\n" +
+	"\x06amount\x18\x05 \x01(\x03R\x06amount\x12\x18\n" +
+	"\abalance\x18\x06 \x01(\x03R\abalance\"]\n" +
 	"\x18SendNotificationResponse\x12\x18\n" +
-	"\asuccess\x18\x01 \x01(\bR\asuccess\x12\x1d\n" +
-	"\n" +
-	"message_id\x18\x02 \x01(\tR\tmessageId2\xf6\x01\n" +
+	"\asuccess\x18\x01 \x01(\bR\asuccess\x12'\n" +
+	"\x0fnotification_id\x18\x02 \x01(\tR\x0enotificationId2\xf6\x01\n" +
 	"\x13NotificationService\x12n\n" +
 	"\x13SendSMSNotification\x12).notifications.v1.SendNotificationRequest\x1a*.notifications.v1.SendNotificationResponse\"\x00\x12o\n" +
 	"\x14SendPushNotification\x12).notifications.v1.SendNotificationRequest\x1a*.notifications.v1.SendNotificationResponse\"\x00B?Z=github.com/Muhmd95/Contracts/notifications/v1;notificationsv1b\x06proto3"

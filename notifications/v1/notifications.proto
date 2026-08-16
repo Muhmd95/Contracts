@@ -19,10 +19,12 @@ message SendNotificationRequest {
     string message = 2;
     string transaction_id = 3;
     string wallet_id = 4;
+    int64  amount = 5;
+    int64  balance = 6;
 }
 
 message SendNotificationResponse {
     bool success = 1;
-    string message_id = 2;
+    string notification_id = 2;
 }
 
