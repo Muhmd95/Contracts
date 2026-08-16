@@ -1,0 +1,28 @@
+// define the syntax
+syntax = "proto3";
+
+// define the package name 
+package notifications.v1;
+// tells the generator to generate code for the Go programming
+// language and specifies the import path for the generated code.
+option go_package = "github.com/Muhmd95/Contracts/notifications/v1;notificationsv1";
+
+import "google/protobuf/timestamp.proto";
+
+service NotificationService {
+    rpc SendSMSNotification(SendNotificationRequest) returns (SendNotificationResponse) {}
+    rpc SendPushNotification(SendNotificationRequest) returns (SendNotificationResponse) {}
+}
+
+message SendNotificationRequest {
+    string phone_number = 1;
+    string message = 2;
+    string transaction_id = 3;
+    string wallet_id = 4;
+}
+
+message SendNotificationResponse {
+    bool success = 1;
+    string message_id = 2;
+}
+
