@@ -194,6 +194,7 @@ type GetWalletResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	WalletId      string                 `protobuf:"bytes,1,opt,name=wallet_id,json=walletId,proto3" json:"wallet_id,omitempty"`
 	OwnerName     string                 `protobuf:"bytes,2,opt,name=owner_name,json=ownerName,proto3" json:"owner_name,omitempty"`
+	Balance       string                 `protobuf:"bytes,3,opt,name=balance,proto3" json:"balance,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -242,6 +243,13 @@ func (x *GetWalletResponse) GetOwnerName() string {
 	return ""
 }
 
+func (x *GetWalletResponse) GetBalance() string {
+	if x != nil {
+		return x.Balance
+	}
+	return ""
+}
+
 var File_wallet_v1_wallet_proto protoreflect.FileDescriptor
 
 const file_wallet_v1_wallet_proto_rawDesc = "" +
@@ -257,11 +265,12 @@ const file_wallet_v1_wallet_proto_rawDesc = "" +
 	"\n" +
 	"updated_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"5\n" +
 	"\x10GetWalletRequest\x12!\n" +
-	"\fphone_number\x18\x01 \x01(\tR\vphoneNumber\"O\n" +
+	"\fphone_number\x18\x01 \x01(\tR\vphoneNumber\"i\n" +
 	"\x11GetWalletResponse\x12\x1b\n" +
 	"\twallet_id\x18\x01 \x01(\tR\bwalletId\x12\x1d\n" +
 	"\n" +
-	"owner_name\x18\x02 \x01(\tR\townerName2\xaf\x01\n" +
+	"owner_name\x18\x02 \x01(\tR\townerName\x12\x18\n" +
+	"\abalance\x18\x03 \x01(\tR\abalance2\xaf\x01\n" +
 	"\rWalletService\x12T\n" +
 	"\rModifyBalance\x12\x1f.wallet.v1.ModifyBalanceRequest\x1a .wallet.v1.ModifyBalanceResponse\"\x00\x12H\n" +
 	"\tGetWallet\x12\x1b.wallet.v1.GetWalletRequest\x1a\x1c.wallet.v1.GetWalletResponse\"\x00B1Z/github.com/Muhmd95/Contracts/wallet/v1;walletv1b\x06proto3"

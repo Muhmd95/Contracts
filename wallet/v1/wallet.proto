@@ -35,5 +35,6 @@ message GetWalletRequest {
 message GetWalletResponse {
     string wallet_id = 1;
     string owner_name =2;
+    string balance = 3;
 }
 
