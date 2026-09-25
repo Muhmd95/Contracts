@@ -23,8 +23,13 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	WalletService_ModifyBalance_FullMethodName = "/wallet.v1.WalletService/ModifyBalance"
-	WalletService_GetWallet_FullMethodName     = "/wallet.v1.WalletService/GetWallet"
+	WalletService_ModifyBalance_FullMethodName     = "/wallet.v1.WalletService/ModifyBalance"
+	WalletService_GetWallet_FullMethodName         = "/wallet.v1.WalletService/GetWallet"
+	WalletService_CreateWallet_FullMethodName      = "/wallet.v1.WalletService/CreateWallet"
+	WalletService_GetUserWallets_FullMethodName    = "/wallet.v1.WalletService/GetUserWallets"
+	WalletService_GetWalletBalance_FullMethodName  = "/wallet.v1.WalletService/GetWalletBalance"
+	WalletService_DeleteWallet_FullMethodName      = "/wallet.v1.WalletService/DeleteWallet"
+	WalletService_DeleteUserWallets_FullMethodName = "/wallet.v1.WalletService/DeleteUserWallets"
 )
 
 // WalletServiceClient is the client API for WalletService service.
@@ -33,6 +38,11 @@ const (
 type WalletServiceClient interface {
 	ModifyBalance(ctx context.Context, in *ModifyBalanceRequest, opts ...grpc.CallOption) (*ModifyBalanceResponse, error)
 	GetWallet(ctx context.Context, in *GetWalletRequest, opts ...grpc.CallOption) (*GetWalletResponse, error)
+	CreateWallet(ctx context.Context, in *CreateWalletRequest, opts ...grpc.CallOption) (*CreateWalletResponse, error)
+	GetUserWallets(ctx context.Context, in *GetUserWalletsRequest, opts ...grpc.CallOption) (*GetUserWalletsResponse, error)
+	GetWalletBalance(ctx context.Context, in *GetWalletBalanceRequest, opts ...grpc.CallOption) (*GetWalletBalanceResponse, error)
+	DeleteWallet(ctx context.Context, in *DeleteWalletRequest, opts ...grpc.CallOption) (*DeleteWalletResponse, error)
+	DeleteUserWallets(ctx context.Context, in *DeleteUserWalletsRequest, opts ...grpc.CallOption) (*DeleteUserWalletsResponse, error)
 }
 
 type walletServiceClient struct {
@@ -63,12 +73,67 @@ func (c *walletServiceClient) GetWallet(ctx context.Context, in *GetWalletReques
 	return out, nil
 }
 
+func (c *walletServiceClient) CreateWallet(ctx context.Context, in *CreateWalletRequest, opts ...grpc.CallOption) (*CreateWalletResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateWalletResponse)
+	err := c.cc.Invoke(ctx, WalletService_CreateWallet_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *walletServiceClient) GetUserWallets(ctx context.Context, in *GetUserWalletsRequest, opts ...grpc.CallOption) (*GetUserWalletsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetUserWalletsResponse)
+	err := c.cc.Invoke(ctx, WalletService_GetUserWallets_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *walletServiceClient) GetWalletBalance(ctx context.Context, in *GetWalletBalanceRequest, opts ...grpc.CallOption) (*GetWalletBalanceResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetWalletBalanceResponse)
+	err := c.cc.Invoke(ctx, WalletService_GetWalletBalance_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *walletServiceClient) DeleteWallet(ctx context.Context, in *DeleteWalletRequest, opts ...grpc.CallOption) (*DeleteWalletResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteWalletResponse)
+	err := c.cc.Invoke(ctx, WalletService_DeleteWallet_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *walletServiceClient) DeleteUserWallets(ctx context.Context, in *DeleteUserWalletsRequest, opts ...grpc.CallOption) (*DeleteUserWalletsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteUserWalletsResponse)
+	err := c.cc.Invoke(ctx, WalletService_DeleteUserWallets_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WalletServiceServer is the server API for WalletService service.
 // All implementations must embed UnimplementedWalletServiceServer
 // for forward compatibility.
 type WalletServiceServer interface {
 	ModifyBalance(context.Context, *ModifyBalanceRequest) (*ModifyBalanceResponse, error)
 	GetWallet(context.Context, *GetWalletRequest) (*GetWalletResponse, error)
+	CreateWallet(context.Context, *CreateWalletRequest) (*CreateWalletResponse, error)
+	GetUserWallets(context.Context, *GetUserWalletsRequest) (*GetUserWalletsResponse, error)
+	GetWalletBalance(context.Context, *GetWalletBalanceRequest) (*GetWalletBalanceResponse, error)
+	DeleteWallet(context.Context, *DeleteWalletRequest) (*DeleteWalletResponse, error)
+	DeleteUserWallets(context.Context, *DeleteUserWalletsRequest) (*DeleteUserWalletsResponse, error)
 	mustEmbedUnimplementedWalletServiceServer()
 }
 
@@ -84,6 +149,21 @@ func (UnimplementedWalletServiceServer) ModifyBalance(context.Context, *ModifyBa
 }
 func (UnimplementedWalletServiceServer) GetWallet(context.Context, *GetWalletRequest) (*GetWalletResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetWallet not implemented")
+}
+func (UnimplementedWalletServiceServer) CreateWallet(context.Context, *CreateWalletRequest) (*CreateWalletResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method CreateWallet not implemented")
+}
+func (UnimplementedWalletServiceServer) GetUserWallets(context.Context, *GetUserWalletsRequest) (*GetUserWalletsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetUserWallets not implemented")
+}
+func (UnimplementedWalletServiceServer) GetWalletBalance(context.Context, *GetWalletBalanceRequest) (*GetWalletBalanceResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetWalletBalance not implemented")
+}
+func (UnimplementedWalletServiceServer) DeleteWallet(context.Context, *DeleteWalletRequest) (*DeleteWalletResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteWallet not implemented")
+}
+func (UnimplementedWalletServiceServer) DeleteUserWallets(context.Context, *DeleteUserWalletsRequest) (*DeleteUserWalletsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method DeleteUserWallets not implemented")
 }
 func (UnimplementedWalletServiceServer) mustEmbedUnimplementedWalletServiceServer() {}
 func (UnimplementedWalletServiceServer) testEmbeddedByValue()                       {}
@@ -142,6 +222,96 @@ func _WalletService_GetWallet_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WalletService_CreateWallet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateWalletRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WalletServiceServer).CreateWallet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WalletService_CreateWallet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WalletServiceServer).CreateWallet(ctx, req.(*CreateWalletRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WalletService_GetUserWallets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserWalletsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WalletServiceServer).GetUserWallets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WalletService_GetUserWallets_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WalletServiceServer).GetUserWallets(ctx, req.(*GetUserWalletsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WalletService_GetWalletBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetWalletBalanceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WalletServiceServer).GetWalletBalance(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WalletService_GetWalletBalance_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WalletServiceServer).GetWalletBalance(ctx, req.(*GetWalletBalanceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WalletService_DeleteWallet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteWalletRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WalletServiceServer).DeleteWallet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WalletService_DeleteWallet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WalletServiceServer).DeleteWallet(ctx, req.(*DeleteWalletRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _WalletService_DeleteUserWallets_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteUserWalletsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WalletServiceServer).DeleteUserWallets(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WalletService_DeleteUserWallets_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WalletServiceServer).DeleteUserWallets(ctx, req.(*DeleteUserWalletsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // WalletService_ServiceDesc is the grpc.ServiceDesc for WalletService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -156,6 +326,26 @@ var WalletService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetWallet",
 			Handler:    _WalletService_GetWallet_Handler,
+		},
+		{
+			MethodName: "CreateWallet",
+			Handler:    _WalletService_CreateWallet_Handler,
+		},
+		{
+			MethodName: "GetUserWallets",
+			Handler:    _WalletService_GetUserWallets_Handler,
+		},
+		{
+			MethodName: "GetWalletBalance",
+			Handler:    _WalletService_GetWalletBalance_Handler,
+		},
+		{
+			MethodName: "DeleteWallet",
+			Handler:    _WalletService_DeleteWallet_Handler,
+		},
+		{
+			MethodName: "DeleteUserWallets",
+			Handler:    _WalletService_DeleteUserWallets_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

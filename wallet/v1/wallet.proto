@@ -12,19 +12,22 @@ import "google/protobuf/timestamp.proto";
 service WalletService {
     rpc ModifyBalance(ModifyBalanceRequest) returns (ModifyBalanceResponse) {}
     rpc GetWallet(GetWalletRequest) returns (GetWalletResponse) {}
+    rpc CreateWallet(CreateWalletRequest) returns (CreateWalletResponse) {}
+    rpc GetUserWallets(GetUserWalletsRequest) returns (GetUserWalletsResponse) {}
+    rpc GetWalletBalance(GetWalletBalanceRequest) returns (GetWalletBalanceResponse) {}
+    rpc DeleteWallet(DeleteWalletRequest) returns (DeleteWalletResponse) {}
+    rpc DeleteUserWallets(DeleteUserWalletsRequest) returns (DeleteUserWalletsResponse) {}
 }
 
 message ModifyBalanceRequest {
     string phone_number = 1;
     int64 amount = 2;
-
     string referenceID = 3; // the transaction id
 }
 
 message ModifyBalanceResponse {
     string wallet_id = 1;
     int64 balance = 2;
-    
     google.protobuf.Timestamp updated_at = 3;
 }
 
@@ -36,5 +39,61 @@ message GetWalletResponse {
     string wallet_id = 1;
     string owner_name =2;
     int64 balance = 3;
+}
+
+// --- New RPC Messages ---
+
+message CreateWalletRequest {
+    string user_id = 1;
+    string phone_number = 2;
+}
+
+message CreateWalletResponse {
+    string wallet_id = 1;
+    int64 balance = 2;
+    google.protobuf.Timestamp created_at = 3;
+}
+
+message GetUserWalletsRequest {
+    string user_id = 1;
+}
+
+message WalletInfo {
+    string wallet_id = 1;
+    string phone_number = 2;
+    int64 balance = 3;
+    string currency_code = 4;
+    google.protobuf.Timestamp created_at = 5;
+}
+
+message GetUserWalletsResponse {
+    repeated WalletInfo wallets = 1;
+}
+
+message GetWalletBalanceRequest {
+    string wallet_id = 1;
+}
+
+message GetWalletBalanceResponse {
+    string wallet_id = 1;
+    int64 balance = 2;
+    google.protobuf.Timestamp updated_at = 3;
+}
+
+message DeleteWalletRequest {
+    string user_id = 1;
+    string wallet_id = 2;
+}
+
+message DeleteWalletResponse {
+    bool success = 1;
+}
+
+message DeleteUserWalletsRequest {
+    string user_id = 1;
+}
+
+message DeleteUserWalletsResponse {
+    bool success = 1;
 }
 
