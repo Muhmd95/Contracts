@@ -81,7 +81,7 @@ message GetWalletBalanceResponse {
 }
 
 message DeleteWalletRequest {
-    string user_id = 1;
+    reserved 1;
     string wallet_id = 2;
 }
 
