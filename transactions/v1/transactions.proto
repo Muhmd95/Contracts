@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package transactions.v1;
+option go_package = "github.com/Muhmd95/Contracts/transactions/v1;transactionsv1";
+
+import "google/protobuf/timestamp.proto";
+
+// Users authenticates and authorizes callers before invoking this internal API.
+service TransactionsService {
+  rpc Deposit(DepositRequest) returns (DepositResponse);
+  rpc Withdraw(WithdrawRequest) returns (WithdrawResponse);
+  rpc Transfer(TransferRequest) returns (TransferResponse);
+}
+
+// Keys are globally unique. A replay must match the operation and entire payload.
+message DepositRequest {
+  string phone_number = 1;
+  int64 amount = 2;
+  string idempotency_key = 3;
+}
+message WithdrawRequest {
+  string phone_number = 1;
+  int64 amount = 2;
+  string idempotency_key = 3;
+}
+message TransferRequest {
+  string sender_phone = 1;
+  string receiver_phone = 2;
+  int64 amount = 3;
+  string idempotency_key = 4;
+}
+message DepositResponse {
+  string transaction_id = 1;
+  string wallet_id = 2;
+  string status = 3;
+  int64 balance = 4;
+  google.protobuf.Timestamp created_at = 5;
+}
+message WithdrawResponse {
+  string transaction_id = 1;
+  string wallet_id = 2;
+  string status = 3;
+  int64 balance = 4;
+  google.protobuf.Timestamp created_at = 5;
+}
+message TransferResponse {
+  string transaction_id = 1;
+  string sender_wallet_id = 2;
+  string status = 3;
+  int64 balance_after = 4;
+  int64 balance_before = 5;
+}
+
+// Sent in google.rpc.ErrorInfo (domain "transactions").
+enum ErrorReason {
+  ERROR_REASON_UNSPECIFIED = 0;
+  INVALID_REQUEST = 1;
+  WALLET_NOT_FOUND = 2;
+  INSUFFICIENT_BALANCE = 3;
+  EXCEEDS_MAX_BALANCE = 4;
+  TRANSFER_REJECTED = 5;
+  HIGH_FREQUENCY = 6;
+  IDEMPOTENCY_CONFLICT = 7;
+}
